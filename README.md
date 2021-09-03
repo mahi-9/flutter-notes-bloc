@@ -2,5 +2,5 @@
 # Adding + Updating + Deleting a Note:
 # Dark/Light Mode:
 # Signup + Login:
-
+# Video Player
 
