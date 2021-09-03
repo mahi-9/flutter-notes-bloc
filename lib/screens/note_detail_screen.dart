@@ -3,7 +3,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc_notes/blocs/blocs.dart';
 import 'package:flutter_bloc_notes/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_notes/screens/VideoPlayer.dart';
+//import'package:flutter_bloc_notes/blocs/note_detail/notes_details_bloc.dart';
+//import 'package:flutter_bloc_notes/screens/player.dart';
 import 'package:flutter_bloc_notes/widgets/widgets.dart';
+import 'package:video_player/video_player.dart';
 
 import '../blocs/blocs.dart';
 
@@ -23,6 +27,13 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
 
 
   final TextEditingController _contentController = TextEditingController();
+
+  final FocusNode _URLFocusNode = FocusNode();
+
+
+  final TextEditingController _URLController = TextEditingController();
+
+
   final List<HexColor> _colors = [
     HexColor('#E74C3C'),
     HexColor('#3498DB'),
@@ -39,12 +50,15 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
     if (_isEditing) {
       _titleController.text = widget.note.title;
       _contentController.text = widget.note.content;
+      _URLController.text = widget.note.URL;
     } else {
 
       SchedulerBinding.instance.addPostFrameCallback(
               (_) => FocusScope.of(context).requestFocus(_titleFocusNode));
       SchedulerBinding.instance.addPostFrameCallback(
           (_) => FocusScope.of(context).requestFocus(_contentFocusNode));
+      SchedulerBinding.instance.addPostFrameCallback(
+              (_) => FocusScope.of(context).requestFocus(_URLFocusNode));
     }
   }
 
@@ -58,6 +72,10 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
     _contentController.dispose();
 
     _contentFocusNode.dispose();
+
+    _URLController.dispose();
+
+    _URLFocusNode.dispose();
   }
 
   @override
@@ -140,12 +158,54 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
 
                       NoteContentUpdated(content: value),
                     ),
-              ),],)
+              ),
+                TextField(
+                  focusNode: _URLFocusNode,
+
+                  controller: _URLController,
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    height: 1.2,
+                  ),
+
+                  decoration: const InputDecoration.collapsed(
+                      hintText: 'Put the link here :)'),
+                  maxLines: null,
+                  textCapitalization: TextCapitalization.sentences,
+
+                  onChanged: (value) { context.bloc<NoteDetailBloc>().add(
+
+                    NoteURLUpdated(URL: value),
+
+                  );
+                  }
+                ),
+                FlatButton(
+              onPressed: () {
+                var URL = _URLController.value.text;
+                print(URL);
+                print("****************************************************************************");
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => VideoApp(videopath: URL,),
+                  ),
+                );
+
+              },
+              child: Text(
+                'PLAY',
+                style: const TextStyle(fontSize: 17.0, color: Colors.green),
+              ),
+            ),],)
             ),
             bottomSheet: ColorPicker(
               state: state,
               colors: _colors,
             ),
+
+
+
           );
         },
       ),
@@ -161,6 +221,8 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
               style: const TextStyle(fontSize: 17.0, color: Colors.red),
             ),
           )
+
+
         : FlatButton(
             onPressed: () => context.bloc<NoteDetailBloc>().add(NoteAdded()),
             child: Text(
@@ -169,4 +231,23 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
             ),
           );
   }
+
+
+
 }
+
+class VideoApp extends StatelessWidget {
+  const VideoApp({Key key, this.videopath}) : super(key: key);
+  final String videopath;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: VideoPlayerCustum(videopath: videopath,),
+    );
+  }
+}
+
+
+
+

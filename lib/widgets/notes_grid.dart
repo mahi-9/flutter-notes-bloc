@@ -51,7 +51,7 @@ class NotesGrid extends StatelessWidget {
                 child: Text(
                   note.title,
                   //note.content,
-                  style: const TextStyle(color: Colors.white,fontSize: 32.0),
+                  style: const TextStyle(color: Colors.black87,fontSize: 30.0),
                 ),),
                 Flexible(child:Text(
                   //note.title,

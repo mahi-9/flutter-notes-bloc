@@ -1,4 +1,5 @@
 import 'dart:async';
+//import 'dart:html';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -30,7 +31,12 @@ class NoteDetailBloc extends Bloc<NoteDetailEvent, NoteDetailState> {
 
     else if (event is NoteContentUpdated) {
       yield* _mapNoteContentUpdatedToState(event);
-    } else if (event is NoteColorUpdated) {
+    }
+    else if (event is NoteURLUpdated) {
+      yield* _mapNoteURLUpdatedToState(event);
+    }
+
+    else if (event is NoteColorUpdated) {
       yield* _mapNoteColorUpdatedToState(event);
     } else if (event is NoteAdded) {
       yield* _mapNoteAddedToState();
@@ -96,6 +102,31 @@ class NoteDetailBloc extends Bloc<NoteDetailEvent, NoteDetailState> {
       yield state.update(
           note: state.note.copy(
             title: event.title,
+            //content: event.content,
+            timestamp: DateTime.now(),
+          ));
+    }
+  }
+
+
+
+  Stream<NoteDetailState> _mapNoteURLUpdatedToState(
+      NoteURLUpdated event) async* {
+    if (state.note == null) {
+      final String currentUserId = _getCurrentUserId();
+      final Note note = Note(
+        userId: currentUserId,
+        //title: event.title,
+        URL: event.URL,
+        color: HexColor('#E74C3C'),
+        timestamp: DateTime.now(),
+      );
+
+      yield state.update(note: note);
+    } else {
+      yield state.update(
+          note: state.note.copy(
+            URL: event.URL,
             //content: event.content,
             timestamp: DateTime.now(),
           ));

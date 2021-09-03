@@ -30,6 +30,21 @@ class NoteTitleUpdated extends NoteDetailEvent {
   String toString() => 'NoteTitleUpdated {   title: $title }';
 }
 
+
+class NoteURLUpdated extends NoteDetailEvent {
+  final String URL;
+
+  const NoteURLUpdated({@required this.URL});
+
+  @override
+  List<Object> get props => [URL];
+
+  @override
+
+  String toString() => 'NoteURLUpdated {   title: $URL }';
+}
+
+
 class NoteContentUpdated extends NoteDetailEvent {
   final String content;
 

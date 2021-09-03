@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -10,13 +12,15 @@ class NoteEntity extends Equatable {
   final String color;
   final Timestamp timestamp;
 
+  final String URL;
+
   const NoteEntity({
     this.id,
     @required this.userId,
     @required this.title,
     @required this.content,
     @required this.color,
-    @required this.timestamp,
+    @required this.timestamp, @required this.URL,
   });
 
   @override
@@ -28,6 +32,7 @@ class NoteEntity extends Equatable {
     userId: $userId,
     title: $title,
     content: $content,
+    URL: $URL,
     color: $color,
     timestamp: $timestamp,  
   }''';
@@ -37,6 +42,7 @@ class NoteEntity extends Equatable {
       'userId': userId,
       'title': title,
       'content': content,
+      'URL': URL,
       'color': color,
       'timestamp': timestamp,
     };
@@ -48,6 +54,7 @@ class NoteEntity extends Equatable {
       userId: doc.data['userId'] ?? '',
       title: doc.data['title'] ?? '',
       content: doc.data['content'] ?? '',
+      URL: doc.data['URL'] ?? '',
       color: doc.data['color'] ?? '#FFFFFF',
       timestamp: doc.data['timestamp'],
     );
