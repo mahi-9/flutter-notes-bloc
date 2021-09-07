@@ -24,7 +24,7 @@ class _Home extends State<Home> {
           brightness: Brightness.dark,
 
           title: Text(
-            'Super Note',
+            'Offline Note',
             style: TextStyle(
               color: const Color(c5),
             ),
@@ -43,9 +43,13 @@ class _Home extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => NotesEdit()),
+
               );
             }
+
         ),
+
+
       ),
     );
   }
