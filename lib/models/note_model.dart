@@ -83,6 +83,20 @@ class Note extends Equatable {
       timestamp: timestamp ?? this.timestamp,
     );
   }
+
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> data = Map<String, dynamic>();
+    if (id != null) {
+      data['id'] = id;
+    }
+    data['title'] = title;
+    data['content'] = content;
+    data['color'] = color;
+    return data;
+  }
+
+
 }
 
 class HexColor extends Color {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_notes/blocs/blocs.dart';
 import 'package:flutter_bloc_notes/config/themes.dart';
 import 'package:flutter_bloc_notes/repositories/repositories.dart';
+import 'package:flutter_bloc_notes/screens/home.dart';
 import 'package:flutter_bloc_notes/widgets/widgets.dart';
 
 import 'screens.dart';
@@ -99,12 +100,13 @@ class HomeScreen extends StatelessWidget {
               )
             : const SizedBox.shrink(),
         notesState is NotesError
-            ? Center(
+            ? Home()/*Center(
                 child: Text(
                   'Something went wrong!\nPlease check your connection.',
+
                   textAlign: TextAlign.center,
                 ),
-              )
+              )*/
             : const SizedBox.shrink(),
       ],
     );
