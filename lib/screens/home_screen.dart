@@ -100,14 +100,14 @@ class HomeScreen extends StatelessWidget {
               )
             : const SizedBox.shrink(),
         notesState is NotesError
-            ? Home()/*Center(
+            ? Home: Home()/*Center(
                 child: Text(
                   'Something went wrong!\nPlease check your connection.',
 
                   textAlign: TextAlign.center,
                 ),
               )*/
-            : const SizedBox.shrink(),
+           
       ],
     );
   }
