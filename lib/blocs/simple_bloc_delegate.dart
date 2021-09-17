@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 
-class SimpleBlocDelegate extends BlocDelegate {
+class SimpleBlocDelegate extends BlocObserver {
+
+
   @override
   void onEvent(Bloc bloc, Object event) {
     print(event);
@@ -13,9 +15,6 @@ class SimpleBlocDelegate extends BlocDelegate {
     super.onTransition(bloc, transition);
   }
 
-  @override
-  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
-    print('$error: $stackTrace');
-    super.onError(bloc, error, stackTrace);
+
   }
-}
+

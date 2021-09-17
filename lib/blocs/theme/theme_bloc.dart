@@ -11,6 +11,8 @@ part 'theme_event.dart';
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+  ThemeBloc(ThemeState initialState) : super(initialState);
+
   @override
   ThemeState get initialState =>
       ThemeState(themeData: Themes.themeData[AppTheme.LightTheme]);

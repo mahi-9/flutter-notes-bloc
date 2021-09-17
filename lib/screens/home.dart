@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_notes/screens/screens.dart';
 
 import 'notes_edit.dart';
 
@@ -24,7 +25,7 @@ class _Home extends State<Home> {
           brightness: Brightness.dark,
 
           title: Text(
-            'Offline Note',
+            'Super Note',
             style: TextStyle(
               color: const Color(c5),
             ),
@@ -34,22 +35,18 @@ class _Home extends State<Home> {
         //Floating Button
         floatingActionButton: FloatingActionButton(
           child: const Icon(
-            Icons.add,
+            Icons.arrow_back,
             color: const Color(c5),
           ),
-          tooltip: 'New Notes',
+          tooltip: 'press to go online',
           backgroundColor: const Color(c4),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => NotesEdit()),
-
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             }
-
         ),
-
-
       ),
     );
   }

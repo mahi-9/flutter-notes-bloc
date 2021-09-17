@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ? 'Invalid Email'
                   : null,
           onChanged: (val) =>
-              context.bloc<LoginBloc>().add(EmailChanged(email: val)),
+              BlocProvider.of<LoginBloc>(context).add(EmailChanged(email: val)),
         ),
         const SizedBox(
           height: 40.0,
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ? 'Password must be at least 6 characters.'
                   : null,
           onChanged: (val) =>
-              context.bloc<LoginBloc>().add(PasswordChanged(password: val)),
+              BlocProvider.of<LoginBloc>(context).add(PasswordChanged(password: val)),
         ),
         const SizedBox(
           height: 50.0,
@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           onPressed: state.isFormValid
-              ? () => context.bloc<LoginBloc>().add(LoginPressed(
+              ? () => BlocProvider.of<LoginBloc>(context).add(LoginPressed(
                   email: _emailController.text,
                   password: _passwordController.text))
               : null,
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           onPressed: state.isFormValid
-              ? () => context.bloc<LoginBloc>().add(SignupPressed(
+              ? () =>BlocProvider.of<LoginBloc>(context).add(SignupPressed(
                   email: _emailController.text,
                   password: _passwordController.text))
               : null,

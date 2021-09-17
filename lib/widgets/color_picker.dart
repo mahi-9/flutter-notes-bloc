@@ -18,8 +18,7 @@ class ColorPicker extends StatelessWidget {
         children: colors.map((color) {
           bool isSelected = state.note != null && state.note.color == color;
           return GestureDetector(
-            onTap: () => context
-                .bloc<NoteDetailBloc>()
+            onTap: () => BlocProvider.of<NoteDetailBloc>(context)
                 .add(NoteColorUpdated(color: color)),
             child: Container(
               width: 30.0,

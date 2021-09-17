@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_notes/config/themes.dart';
+
 import 'blocs/blocs.dart';
 import 'repositories/repositories.dart';
 import 'screens/screens.dart';
-
+import 'package:video_player/video_player.dart';
 void main() {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+ // VideoPlayerController _vcontroller;
+  Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }
 
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ThemeBloc>(
-          create: (_) => ThemeBloc()..add(LoadTheme()),
+          create: (_) => ThemeBloc(ThemeState(themeData: Themes.themeData[AppTheme.LightTheme]))..add(LoadTheme()),
         ),
         BlocProvider<AuthBloc>(
           create: (_) => AuthBloc(
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
             notesRepository: NotesRepository(),
           ),
         )
+
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {

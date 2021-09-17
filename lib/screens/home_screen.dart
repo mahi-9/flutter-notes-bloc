@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         //fetch notes
-        context.bloc<NotesBloc>().add(FetchNotes());
+        BlocProvider.of<NotesBloc>(context).add(FetchNotes());
       },
       builder: (context, authState) {
         return Scaffold(
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               MaterialPageRoute(
                 builder: (_) => BlocProvider<NoteDetailBloc>(
                   create: (_) => NoteDetailBloc(
-                    authBloc: context.bloc<AuthBloc>(),
+                    authBloc: BlocProvider.of<AuthBloc>(context),
                     notesRepository: NotesRepository(),
                   ),
                   child: NoteDetailScreen(),
@@ -61,12 +61,12 @@ class HomeScreen extends StatelessWidget {
                     : Icon(Icons.account_circle),
                 iconSize: 28.0,
                 onPressed: () => authState is Authenticated
-                    ? context.bloc<AuthBloc>().add(Logout())
+                    ? BlocProvider.of<AuthBloc>(context).add(Logout())
                     : Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => BlocProvider<LoginBloc>(
                             create: (_) => LoginBloc(
-                              authBloc: context.bloc<AuthBloc>(),
+                              authBloc: BlocProvider.of<AuthBloc>(context),
                               authRepository: AuthRepository(),
                             ),
                             child: LoginScreen(),
@@ -83,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) => BlocProvider<NoteDetailBloc>(
                           create: (_) => NoteDetailBloc(
-                            authBloc: context.bloc<AuthBloc>(),
+                            authBloc: BlocProvider.of<AuthBloc>(context),
                             notesRepository: NotesRepository(),
                           )..add(NoteLoaded(note: note)),
                           child: NoteDetailScreen(note: note),
@@ -113,13 +113,13 @@ class HomeScreen extends StatelessWidget {
   }
 
   IconButton _buildThemeIconButton(BuildContext context) {
-    final bool isLightTheme = context.bloc<ThemeBloc>().state.themeData ==
+    final bool isLightTheme = BlocProvider.of<ThemeBloc>(context).state.themeData ==
         Themes.themeData[AppTheme.LightTheme];
 
     return IconButton(
       icon: isLightTheme ? Icon(Icons.brightness_4) : Icon(Icons.brightness_5),
       iconSize: 28.0,
-      onPressed: () => context.bloc<ThemeBloc>().add(UpdateTheme()),
+      onPressed: () => BlocProvider.of<ThemeBloc>(context).add(UpdateTheme()),
     );
   }
 }

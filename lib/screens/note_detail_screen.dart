@@ -3,11 +3,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc_notes/blocs/blocs.dart';
 import 'package:flutter_bloc_notes/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_notes/screens/VideoPlayer.dart';
+import 'package:flutter_bloc_notes/presentation/pages/home_page.dart';
+//import 'package:flutter_bloc_notes/screens/VideoPlayer.dart';
 //import'package:flutter_bloc_notes/blocs/note_detail/notes_details_bloc.dart';
 //import 'package:flutter_bloc_notes/screens/player.dart';
 import 'package:flutter_bloc_notes/widgets/widgets.dart';
-import 'package:video_player/video_player.dart';
+//import 'package:video_player/video_player.dart';
 
 import '../blocs/blocs.dart';
 
@@ -83,7 +84,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
     return WillPopScope(
       onWillPop: () {
         if (_isEditing) {
-          context.bloc<NoteDetailBloc>().add(NoteSaved());
+          BlocProvider.of<NoteDetailBloc>(context).add(NoteSaved());
         }
         return Future.value(true);
       },
@@ -136,7 +137,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
                       hintText: 'Title Goes Here :)'),
                   maxLines: 1,
                   textCapitalization: TextCapitalization.sentences,
-                  onChanged: (value) => context.bloc<NoteDetailBloc>().add(
+                  onChanged: (value) => BlocProvider.of<NoteDetailBloc>(context).add(
                     NoteTitleUpdated(title: value),
                   ),
                 ),
@@ -154,7 +155,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
                     hintText: 'Write about anything :)'),
                 maxLines: null,
                 textCapitalization: TextCapitalization.sentences,
-                onChanged: (value) => context.bloc<NoteDetailBloc>().add(
+                onChanged: (value) => BlocProvider.of<NoteDetailBloc>(context).add(
 
                       NoteContentUpdated(content: value),
                     ),
@@ -173,7 +174,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
                   maxLines: null,
                   textCapitalization: TextCapitalization.sentences,
 
-                  onChanged: (value) { context.bloc<NoteDetailBloc>().add(
+                  onChanged: (value) { BlocProvider.of<NoteDetailBloc>(context).add(
 
                     NoteURLUpdated(URL: value),
 
@@ -215,7 +216,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
   FlatButton _buildAction() {
     return _isEditing
         ? FlatButton(
-            onPressed: () => context.bloc<NoteDetailBloc>().add(NoteDeleted()),
+            onPressed: () => BlocProvider.of<NoteDetailBloc>(context).add(NoteDeleted()),
             child: Text(
               'Delete',
               style: const TextStyle(fontSize: 17.0, color: Colors.red),
@@ -224,7 +225,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
 
 
         : FlatButton(
-            onPressed: () => context.bloc<NoteDetailBloc>().add(NoteAdded()),
+            onPressed: () => BlocProvider.of<NoteDetailBloc>(context).add(NoteAdded()),
             child: Text(
               'Add Note',
               style: const TextStyle(fontSize: 17.0, color: Colors.green),
@@ -243,7 +244,7 @@ class VideoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: VideoPlayerCustum(videopath: videopath,),
+      home: VideoPlayer(videopath: videopath,),
     );
   }
 }

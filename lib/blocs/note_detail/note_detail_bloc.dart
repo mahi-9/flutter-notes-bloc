@@ -14,11 +14,11 @@ part 'note_detail_state.dart';
 class NoteDetailBloc extends Bloc<NoteDetailEvent, NoteDetailState> {
   final AuthBloc _authBloc;
   final NotesRepository _notesRepository;
-
+ // NoteDetailState get initialState => NoteDetailState.empty();
   NoteDetailBloc(
       {@required AuthBloc authBloc, @required NotesRepository notesRepository})
       : _authBloc = authBloc,
-        _notesRepository = notesRepository;
+        _notesRepository = notesRepository, super(NoteDetailState.empty());
   @override
   NoteDetailState get initialState => NoteDetailState.empty();
 

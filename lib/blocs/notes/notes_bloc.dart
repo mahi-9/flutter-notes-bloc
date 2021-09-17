@@ -13,12 +13,12 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   final AuthRepository _authRepository;
   final NotesRepository _notesRepository;
   StreamSubscription _notesSubscription;
-
+ // NotesState get initialState => NotesInitial();
   NotesBloc({
     @required AuthRepository authRepository,
     @required NotesRepository notesRepository,
   })  : _authRepository = authRepository,
-        _notesRepository = notesRepository;
+        _notesRepository = notesRepository, super(NotesInitial());
 
   @override
   NotesState get initialState => NotesInitial();

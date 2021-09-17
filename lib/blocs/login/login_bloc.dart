@@ -19,7 +19,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     @required AuthBloc authBloc,
     @required AuthRepository authRepository,
   })  : _authBloc = authBloc,
-        _authRepository = authRepository;
+        _authRepository = authRepository, super(LoginState.empty());
 
   @override
   LoginState get initialState => LoginState.empty();
